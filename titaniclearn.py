@@ -77,10 +77,17 @@ scores_data_long.head()
 sns.lineplot(x='max_depth', y='score', hue='set_type', data=scores_data_long)
 
 best_clf = tree.DecisionTreeClassifier(criterion='entropy', max_depth=10)
-
 cross_val_score(clf, X_test, y_test, cv=5).mean()
 
+from sklearn.model_selection import GridSearchCV #пробуем автоматизировать подбор оптимальных параметров модели
 
+clf = tree.DecisionTreeClassifier()
+parametrs = {'criterion': ['gini', 'entropy'], 'max_depth': range(1,30)}
+grid_search_cv_clf = GridSearchCV(clf, parametrs, cv=5)
+
+grid_search_cv_clf.fit(X_train, y_train)
+grid_search_cv_clf.best_params_ #определяем лучшие параметры для модели из представленных в словаре parametrs
+best_clf = grid_search_cv_clf.best_estimator_ #фиксируем оптимальные параметры в классификаторе
 
 
 

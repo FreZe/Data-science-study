@@ -89,5 +89,12 @@ grid_search_cv_clf.fit(X_train, y_train)
 grid_search_cv_clf.best_params_ #определяем лучшие параметры для модели из представленных в словаре parametrs
 best_clf = grid_search_cv_clf.best_estimator_ #фиксируем оптимальные параметры в классификаторе
 
+best_clf.score(X_test, y_test) #Смотрим точность с подобраными параметрами
+
+from sklearn.metrics import precision_score, recall_score
+
+y_pred = best_clf.predict(X_test)
+precision_score(y_test, y_pred) #cмотрим на метрику precision
+recall_score(y_test, y_pred) #cмотрим на метрику recall
 
 

@@ -97,4 +97,6 @@ y_pred = best_clf.predict(X_test)
 precision_score(y_test, y_pred) #cмотрим на метрику precision
 recall_score(y_test, y_pred) #cмотрим на метрику recall
 
+y_predicted_prob = best_clf.predict_proba(X_test)
+pd.Series(y_predicted_prob[:, 1]).hist() #cмотрим как распредилилась вероятность предсказания
 

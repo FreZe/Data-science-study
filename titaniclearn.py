@@ -1,4 +1,4 @@
-#тренировка по предсказанию выживших на титанике и подбору параметров модели
+#тренировка по предсказанию выживших на титанике и подбору параметров модели, код из jupyter notebook
 
 
 from sklearn import tree
@@ -104,3 +104,18 @@ pd.Series(y_predicted_prob[:, 1]).hist() #cмотрим как распреди�
 y_pred = np.where(y_predicted_prob[:, 1] > 0.8, 1, 0) #перезаписываем переменную с оптимизированным precision
 precision_score(y_test, y_pred) #смотрим как изменилась метрика precision
 recall_score(y_test, y_pred) #cмотрим как изменилась метрика recall
+
+from sklearn.metrics import roc_curve, auc #выводим ROC кривую.
+
+fpr, tpr, thresholds = roc_curve(y_test, y_predicted_prob[:,1])
+roc_auc= auc(fpr, tpr)
+plt.figure()
+plt.plot(fpr, tpr, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='navy', linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver operating characteristic example')
+plt.legend(loc="lower right")
+plt.show()

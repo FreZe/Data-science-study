@@ -16,25 +16,17 @@ from IPython.display import SVG
 from graphviz import Source
 from IPython.display import display
 
-
 from IPython.display import HTML # Для визуализации глубины классификации данных Решающих деревьев.
 style = "<style>svg{width: 50% !important; height: 50% !important;} </style>"
 HTML(style)
 
-
 titanic_data = pd.read_csv('train.csv') #cчитываем данные из csv файла
-
-
-
 titanic_data.head() #знакомимся с представлением данных.
-
 
 titanic_data.isnull().sum() #колличество n/a в сериях
 
-
 X = titanic_data.drop(['PassengerId', 'Survived', 'Name', 'Ticket', 'Cabin'], axis=1) #записываю переменные для обучения
 y = titanic_data.Survived
-
 
 X.head() #проверяю представление данных в переменной X
 

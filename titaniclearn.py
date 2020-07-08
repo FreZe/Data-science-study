@@ -6,6 +6,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -100,3 +101,6 @@ recall_score(y_test, y_pred) #cмотрим на метрику recall
 y_predicted_prob = best_clf.predict_proba(X_test)
 pd.Series(y_predicted_prob[:, 1]).hist() #cмотрим как распредилилась вероятность предсказания
 
+y_pred = np.where(y_predicted_prob[:, 1] > 0.8, 1, 0) #перезаписываем переменную с оптимизированным precision
+precision_score(y_test, y_pred) #смотрим как изменилась метрика precision
+recall_score(y_test, y_pred) #cмотрим как изменилась метрика recall

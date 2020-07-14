@@ -1,4 +1,8 @@
 from sklearn import tree
+from sklearn import svm
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -54,6 +58,16 @@ df_search = GridSearchCV(df, parameters, cv=5)
 df_search.fit(X_train, y_train)
 best_df = df_search.best_estimator_
 best_df.score(X_test, y_test) #Леса справляются лучше. точность составила 71%
+
+clf2 = svm.SVC(kernel='linear') #Пробуем обучить SVC из SVM
+clf2.fit(X, y)
+clf2.score(X, y) #точность выше чем у решающих деревьев, около 80%
+
+clf3 = make_pipeline(StandardScaler(), SVC(gamma='auto')) #подбираем параметры
+clf3.fit(X_train, y_train)
+clf3.score(X_test, y_test) #точность около 85% 
+clf3.predict(X_test)
+
 
 
 
